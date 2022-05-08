@@ -9,20 +9,20 @@
 The repo is under construction. We split the full implementation into five parts and plan to release it one by one in the future. These parts include 
 
 1. Differentiable DJ mixer includes differentiable fader and differentiable equalizer in the time-frequency domain 
-    - [x] [differentiable fader]
-    - [x] [differentiable equalizer]
-    - [x] [differentiable mixer]
+    - [x] differentiable fader
+    - [x] differentiable equalizer
+    - [x] differentiable mixer
 2. DJTransGAN architecture and its training code 
-    - [ ] [GAN model architecture]
-    - [ ] [GAN training code]
+    - [ ] GAN model architecture
+    - [ ] GAN training code
 3. DJTransGAN pre-trained model and its inference code
-    - [ ] [GAN pre-trained model]
-    - [ ] [GAN inference code]
+    - [ ] GAN pre-trained model
+    - [ ] GAN inference code
 4. Data generation pipeline includes four-step usually applied by DJ to select appropriate cue points and matched tracks. 
-    - [ ] [music structure segmentation]
-    - [ ] [mixablity estimation and pairing]
-    - [ ] [bpm and key alignment]
-    - [ ] [cue point selection]
+    - [ ] music structure segmentation
+    - [ ] mixablity estimation and pairing
+    - [ ] bpm and key alignment
+    - [ ] cue point selection
 5. Documentation
 
 Furthermore, if you want to hear more audio example, please check our demo page [here](https://paulyuchen.com/djtransgan-icassp2022/).
