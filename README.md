@@ -50,7 +50,7 @@ We release several usage examples in `examples` directories; we will keep updati
 
 ### Differentiable DJ mixer
 
-You can choose to use fader and equalizer indivdually or use both in the same time. If you want to use it individually, please check `/examples/mixer/mask.ipynb`. If you want to use both in the same time, please check `/examples/mixer/mixer.ipynb`.
+You can choose to use fader and equalizer indivdually or use both in the same time. If you want to use it individually, please check `/examples/mixer/mask.ipynb.` If you want to use both in the same time, please check `/examples/mixer/mixer.ipynb.`
 
 
 ## Citation
