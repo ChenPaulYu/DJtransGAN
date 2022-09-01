@@ -1,5 +1,8 @@
-# Sampling Rate
-SR = 44100
+# Data & Package Directory
+PAIR_DIR    = '../DJtransGAN-dg-pipeline/data/track/pair'
+MIX_DIR     = '../DJtransGAN-dg-pipeline/data/mix'
+STORE_DIR   = './results'
+CACHE_DIR   = './cache'
 
 
 # STFT Parameters
@@ -12,5 +15,9 @@ N_MELS      = 128
 BAND_FREQS = [20, 300, 5000, 20000]
 
 
-# Avoid Divide Zeros
-EPSILON = 1e-12
+# Others
+SR          = 44100 # sampling rate
+EPSILON     = 1e-12 # avoid divide zeros
+RANDOM_SEED = 0     # random seed
+N_TIME      = 60 
+CUE_BAR     = 8

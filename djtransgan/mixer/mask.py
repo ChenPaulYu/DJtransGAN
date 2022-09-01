@@ -36,13 +36,13 @@ class VMask(nn.Module):
     def freq2ratio(self, freq):
         return freq / self.nyqf
         
-    def get_bounded_ratio(self, index, num_band):
+    def get_bounded_ratio(self, index, n_band):
         if self.split_type == 'bias':
             min_freq = self.band_freqs[index]
             max_freq = self.band_freqs[index + 1]
             return self.freq2ratio(min_freq), self.freq2ratio(max_freq)
         elif self.split_type == 'equal':
-            unit     = self.nyqf / num_band
+            unit     = self.nyqf / n_band
             min_freq = unit * index
             max_freq = unit * (index + 1)    
             return self.freq2ratio(min_freq), self.freq2ratio(max_freq)
@@ -50,16 +50,16 @@ class VMask(nn.Module):
     def get_bounded_ratios(self, params, total_band, start_index):
         
         if total_band is None:
-            num_band  = params.size(1) + 1
+            n_band  = params.size(1) + 1
         else:
-            num_band  = total_band
-        bounded_ratios = [self.get_bounded_ratio(index + start_index, num_band) for index in range(params.size(1))]
+            n_band  = total_band
+        bounded_ratios = [self.get_bounded_ratio(index + start_index, n_band) for index in range(params.size(1))]
         return bounded_ratios
     
     def curve_fillout(self, curves):
-        num_batch, _, num_channel, num_bins = curves.size()
-        zeros = torch.zeros(num_batch, 1, num_channel, num_bins, device=curves.device)
-        ones  = torch.ones(num_batch , 1, num_channel, num_bins, device=curves.device)   
+        n_batch, _, n_channel, n_bins = curves.size()
+        zeros = torch.zeros(n_batch, 1, n_channel, n_bins, device=curves.device)
+        ones  = torch.ones(n_batch , 1, n_channel, n_bins, device=curves.device)   
         
         return {
             'low' : torch.cat((zeros, curves, ones), axis=1),
@@ -75,8 +75,8 @@ class VMask(nn.Module):
     def create_fake_waves(self, mags):
         return torch.ones_like(mags[..., 0], device=mags.device)
         
-    def create_mask(self, curves, num_frames):
-        expand_dims = list(curves.size()) + [num_frames]
+    def create_mask(self, curves, n_frames):
+        expand_dims = list(curves.size()) + [n_frames]
         return curves.unsqueeze(-1).expand(expand_dims)
     
     def masking(self, mags, curves):
@@ -89,13 +89,12 @@ class VMask(nn.Module):
     def forward(self, mags, params, total_band=None, start_index=0):
         '''
         Args:
-            mags (Tensor)  : (num_batch, num_channel , num_bins, num_frames)
-            params (Tensor): (num_batch, num_band - 1, 2)
+            mags (Tensor)  : (n_batch, n_channel , n_bins, n_frames)
+            params (Tensor): (n_batch, n_band - 1, 2)
             
         Return:
-
         '''
-        num_batch, num_channel , num_bins, num_frames = mags.size()
+        n_batch, n_channel , n_bins, n_frames = mags.size()
         fake_waves     = self.create_fake_waves(mags)
         bounded_ratios = self.get_bounded_ratios(params, total_band, start_index)
         
@@ -130,9 +129,9 @@ class HMask(nn.Module):
     def create_fake_waves(self, mags):
         return torch.ones_like(mags[..., 0, :], device=mags.device)
     
-    def create_mask(self, curves, num_bins):
+    def create_mask(self, curves, n_bins):
         expand_dims = list(curves.size())
-        expand_dims.insert(-1, num_bins)
+        expand_dims.insert(-1, n_bins)
         return curves.unsqueeze(-2).expand(expand_dims)
     
     def masking(self, mags, curves):
@@ -143,15 +142,14 @@ class HMask(nn.Module):
     def forward(self, mags, params, cue_region=None):
         '''
         Args:
-            mags (Tensor)  : (num_batch, num_channel, num_bins, num_frames)
-            params (Tensor): (num_batch, num_fader, num_params)
+            mags (Tensor)  : (n_batch, n_channel, n_bins, n_frames)
+            params (Tensor): (n_batch, n_fader, n_params)
             
         Return:
-
         '''
-        num_batch        = params.size(0)
-        num_band         = params.size(1)
-        cue_region       = torch.tensor([0, 1]).expand(num_batch, -1) if cue_region is None else cue_region
+        n_batch        = params.size(0)
+        n_band         = params.size(1)
+        cue_region       = torch.tensor([0, 1]).expand(n_batch, -1) if cue_region is None else cue_region
         fake_waves       = self.create_fake_waves(mags)
         processed_curves = self.fader(fake_waves, params, cue_region[..., 0], cue_region[..., 1])[0]
         processed_mags, processed_masks = self.masking(mags, processed_curves)

@@ -6,23 +6,24 @@
 
 ## Overview
 
-The repo is under construction. We split the full implementation into five parts and plan to release it one by one in the future. These parts include 
+
+The reop is nearly complete; we have already open source all the code you need for not only use (provide a pre-trained model) but also to train the DJtransGAN. We will keep improving the document and add more visualization soon.
 
 1. Differentiable DJ mixer includes differentiable fader and differentiable equalizer in the time-frequency domain 
     - [x] differentiable fader
     - [x] differentiable equalizer
     - [x] differentiable mixer
 2. DJTransGAN architecture and its training code 
-    - [ ] GAN model architecture
-    - [ ] GAN training code
+    - [X] GAN model architecture
+    - [X] GAN training code
 3. DJTransGAN pre-trained model and its inference code
-    - [ ] GAN pre-trained model
-    - [ ] GAN inference code
+    - [X] GAN pre-trained model
+    - [X] GAN inference code
 4. Data generation pipeline includes four-step usually applied by DJ to select appropriate cue points and matched tracks. 
-    - [ ] music structure segmentation
-    - [ ] mixablity estimation and pairing
-    - [ ] bpm and key alignment
-    - [ ] cue point selection
+    - [X] music structure segmentation
+    - [X] mixablity estimation and pairing
+    - [X] bpm and key alignment
+    - [X] cue point selection
 5. Documentation
 
 Furthermore, if you want to hear more audio example, please check our demo page [here](https://paulyuchen.com/djtransgan-icassp2022/).
@@ -50,7 +51,8 @@ We release several usage examples in `examples` directories; we will keep updati
 
 ### Differentiable DJ mixer
 
-You can choose to use fader and equalizer indivdually or use both in the same time. If you want to use it individually, please check `/examples/mixer/mask.ipynb.` If you want to use both in the same time, please check `/examples/mixer/mixer.ipynb.`
+
+You can choose to use fader and equalizer indivdually or use both in the same time. If you want to use it individually, please check `/examples/mixer/mask.ipynb`. If you want to use both in the same time, please check `/examples/mixer/mixer.ipynb`.
 
 
 ## Citation
@@ -67,7 +69,7 @@ If you use any of our code in your work please consider citing us.
 
 ## Acknowledgement
 
-This repo is done during the internship in the Sony Group Corporation with outstanding mentoring by my incredible mentors in Sony [Wei-Hsiang Liao](https://jp.linkedin.com/in/wei-hsiang-liao-66283154), [Marco A. Martínez-Ramírez](https://m-marco.com/), and [Yuki Mitsufuji](https://www.yukimitsufuji.com/) and my colleague [Wei-Han Hsu](https://github.com/ddman1101) and advisor [Yi-Hsuan Yang](https://www.citi.sinica.edu.tw/pages/yang/) in Academia  Sinica. The results are a joint effort with Sony Group Corporation and  Academia  Sinica. I sincerely appreciate all the support made by them to make this research happen. Moreover, please check the other excellent AI research made by Sony [here](https://github.com/sony/ai-research-code) if you are interested.  
+This repo is done during the internship in the Sony Group Corporation with outstanding mentoring by my incredible mentors in Sony [Wei-Hsiang Liao](https://jp.linkedin.com/in/wei-hsiang-liao-66283154), [Marco A. Martínez-Ramírez](https://m-marco.com/), and [Yuki Mitsufuji](https://www.yukimitsufuji.com/) and my colleague [Wei-Han Hsu](https://github.com/ddman1101) and advisor [Yi-Hsuan Yang](https://www.citi.sinica.edu.tw/pages/yang/) in Academia  Sinica. The results are a joint effort with Sony Group Corporation and  Academia  Sinica. I sincerely appreciate all the support made by them to make this research happen. Moreover, please check the other excellent AI research made by Sony [here](https://github.com/sony/ai-research-code) and their recent work "[FxNorm-automix](https://marco-martinez-sony.github.io/FxNorm-automix/)" and "[distortionremoval](https://joimort.github.io/distortionremoval/)" which is going to present in ISMIR 2022.
 
 
 

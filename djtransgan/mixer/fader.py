@@ -4,8 +4,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd  import Function
 
-from djtransgan.utils.utils      import purify_device, unsqueeze_dim
-from djtransgan.mixer.transform  import linear_transform, linear_transform_inv, fade_transform
+from djtransgan.utils  import purify_device, unsqueeze_dim
+from djtransgan.mixer  import linear_transform, linear_transform_inv, fade_transform
 
 
 class custom_relu6(Function):
@@ -79,11 +79,11 @@ class Relu6Faders(nn.Module):
     def get_raw_curve(self, waves, params):
         x = torch.linspace(0, 6, waves.size(-1), device=waves.device)
         if len(params.size()) > 3:
-            num_batch, num_wave, num_fader, num_param = params.size()
-            return x.expand(num_batch, num_wave, num_fader, -1)
+            n_batch, n_wave, n_fader, n_param = params.size()
+            return x.expand(n_batch, n_wave, n_fader, -1)
         else:
-            num_batch, num_fader, num_param = params.size()
-            return x.expand(num_batch, num_fader, -1)
+            n_batch, n_fader, n_param = params.size()
+            return x.expand(n_batch, n_fader, -1)
     
     def render_curve(self, x, start, slope):
         curves = prelu6(x, start, slope) / 6
@@ -106,14 +106,13 @@ class Relu6Faders(nn.Module):
 
         '''
         Args:
-            wave (Tensor)  : (num_batch, num_channel, num_samples)
-            params (Tensor): (num_batch, num_fader  , num_param)
+            wave (Tensor)  : (n_batch, n_channel, n_samples)
+            params (Tensor): (n_batch, n_fader  , n_param)
             
             or
             
-            wave (Tensor)  : (num_batch, num_wave, num_fader, num_samples)
-            params (Tensor): (num_batch, num_wave, num_fader, num_samples)
-
+            wave (Tensor)  : (n_batch, n_wave, n_fader, n_samples)
+            params (Tensor): (n_batch, n_wave, n_fader, n_samples)
         '''
         params           = params[:waves.size(0), ...]
         raw_curves       = self.get_raw_curve(waves, params)
@@ -124,5 +123,3 @@ class Relu6Faders(nn.Module):
         processed_curves = self.sum_curves(processed_curves, waves)
         processed_waves  = processed_curves * waves
         return processed_waves, purify_device(processed_curves)
-    
-    
