@@ -100,7 +100,7 @@ python script/inference.py [--g_path=(str, ex:'./pretrained/djtransgan_minmax.pt
 - `--next_track` : the path of the next track (second track).  
 -  `--prev_cue` :  the cue point of previous track (the point previous track totally fade out).  
 - `--next_cue` :   the cue point of next track (the point next track totally fade in).  
-- `--download` :   to specify whether to download the pre-traind model provided by us. 
+- `--download` :   specify whether to download the pre-traind model provided by us. 
 
 
 
