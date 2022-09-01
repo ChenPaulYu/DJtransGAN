@@ -1,8 +1,7 @@
 # Data & Package Directory
-PAIR_DIR    = '../DJtransGAN-dg-pipeline/data/track/pair'
-MIX_DIR     = '../DJtransGAN-dg-pipeline/data/mix'
+PAIR_DIR    = './DJtransGAN-dg-pipeline/data/track/pair'
+MIX_DIR     = './DJtransGAN-dg-pipeline/data/mix'
 STORE_DIR   = './results'
-CACHE_DIR   = './cache'
 
 
 # STFT Parameters
