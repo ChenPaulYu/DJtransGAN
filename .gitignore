@@ -4,6 +4,7 @@ examples/.ipynb_checkpoints/*
 examples/frontend/.ipynb_checkpoints/*
 examples/main/.ipynb_checkpoints/*
 examples/mixer/.ipynb_checkpoints/*
+
 examples/__pycache__/*
 script/.ipynb_checkpoints/*
 script/__pycache__/*
