@@ -74,14 +74,14 @@ python script/train.py [--lr=(list, ex: [1e-5, 1e-5])] [--log=(int, ex: 20)] [--
 
 - `--lr` :  learning rate of generator and discriminator (should provide two value). 
 - `--log` :  log interval during the GAN training. 
-- `--n_gpu` : whcih gpu you want to use 
+- `--n_gpu` : speicify which gpu you want to use.
 - `--epoch` :  number of epoch which indicate how many time of dataset you want to train. 
 -  `--out_dir` : the output directory which is going to save the training result. 
 - `--n_sample` : the number of sample (mix) the model will generate in the end of every epoch. 
 - `--n_critic` :   how many time the discriminator training over generator training. 
 -  `--cnn_type` :  the cnn type of encoder (e.g: `res_cnn` or `cnn`) .  
 - `--loss_type` :  the loss function during the GAN training support `minmax`  and `least square` loss. 
-- `--batch_size` :  the batch size of dataloader during the GAN training
+- `--batch_size` :  the batch size of dataloader during the GAN training.
 
 
 ### Inference 
