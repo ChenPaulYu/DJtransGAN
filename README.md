@@ -7,13 +7,13 @@
 ## Overview
 
 
-The reop is nearly complete; we have already open source all the code you need for not only use (provide a pre-trained model) but also to train the DJtransGAN. We will keep improving the document and add more visualization soon. Currently, the repo contains 3/4 of the DJtransGAN code include
+The reop is nearly complete; we have already open source all the code you need for not only use (provide a pre-trained model) but also train the DJtransGAN. We will keep improving the document and add more visualization soon. Currently, the repo contains 3/4 of the DJtransGAN code include
 
 1. Differentiable DJ mixer includes differentiable fader and differentiable equalizer in the time-frequency domain 
 2. DJtransGAN architecture and its training code 
 3. DJtransGAN pre-trained model and its inference code
 
-The remaining 1/4 of DJtransGANs' is implemented in another repo [DJtransGAN-dg-pipeline](https://github.com/ChenPaulYu/DJtransGAN-dg-pipeline) because of the envs conflicts. Moreover, these two repos can be totally executed independently, and we will detail how to use them individually below.
+The remaining 1/4 of DJtransGANs' is implemented in another repo [DJtransGAN-dg-pipeline](https://github.com/ChenPaulYu/DJtransGAN-dg-pipeline) to make the codebase clean. Moreover, These two repos are totally independent and can be executed individually, and we will detail the process below.
 
 
 Furthermore, if you want to hear more audio example, please check our demo page [here](https://paulyuchen.com/djtransgan-icassp2022/).
@@ -23,9 +23,9 @@ Furthermore, if you want to hear more audio example, please check our demo page 
 
 We collected two datasets to train our proposed approaches: DJ mixset from [Livetracklist](https://www.livetracklist.com/) and individual EDM tracks from [MTG-Jamendo-Dataset](https://github.com/MTG/mtg-jamendo-dataset). 
 
-To be more specific, We in-house collect long DJ mixsets from Livetracklist and only consider the mixset with mix tag to ensure the quality of the mixset. Furthermore, we select the individual EDM track from MTG-Jamendo-Dataset, which means the track with an EDM tag in the total collection. The detailed information about using these two datasets to train our model is described in Section 3.1; please check it if you are interested. 
+To be more specific, We in-house collect long DJ mixsets from Livetracklist and only consider the mixset with **mix** tag to ensure the quality of the mixset. Furthermore, we select the individual EDM track from MTG-Jamendo-Dataset, which means the track with an **EDM** tag in the total collection. The detailed information about using these two datasets is described in Section 3.1; please check it if you are interested in. 
 
-Last, we can not provide our training dataset for reproducing our results because of the license issues. However, we release the training code and pre-trained model for reprocude and more applicable. 
+Unfortunately, we can not provide our training dataset for reproducing the results because of license issues. However, we release the training code and pre-trained model for you to try. Contact me or open the pull request if you have any other issues. 
 
 
 ## Setup 
@@ -38,7 +38,7 @@ pip install -r requirements.txt
 ```
 
 ### Generate dataset
-You should first clone the [DJtransGAN-dg-pipeline](https://github.com/ChenPaulYu/DJtransGAN-dg-pipeline)  and  refer to its README.md to generate datset. 
+You should first clone the [DJtransGAN-dg-pipeline](https://github.com/ChenPaulYu/DJtransGAN-dg-pipeline) and refer to its README.md to generate dataset include mixable  pairs and mixes made by professional DJ. 
 
 ```
 
@@ -57,7 +57,7 @@ Next, you should set the configuration in `djtransgan/config/settings.py`  for g
 
 ## Usage 
 
-We release several usage examples in `examples/` and `script/` for  not only training and infering code of DJtransGAN but also usage of individual component (e.g: differentiable fader, equalizer and mixer).  Detail describe below. 
+We release several examples in `examples/` and `script/` for  not only training and infering but also individual usage of each component (e.g: differentiable fader, equalizer and mixer).  Detail describe below. 
 
 ### Differentiable DJ mixer
 You can choose to use fader and equalizer indivdually or use both in the same time. If you want to use it individually, please check `examples/mixer/mask.ipynb`. If you want to use both in the same time, please check `examples/mixer/mixer.ipynb`.
@@ -74,12 +74,12 @@ python script/train.py [--lr=(list, ex: [1e-5, 1e-5])] [--log=(int, ex: 20)] [--
 
 - `--lr` :  learning rate of generator and discriminator (should provide two value). 
 - `--log` :  log interval during the GAN training. 
-- `--n_gpu` : the number of gpu you want to use 
+- `--n_gpu` : whcih gpu you want to use 
 - `--epoch` :  number of epoch which indicate how many time of dataset you want to train. 
 -  `--out_dir` : the output directory which is going to save the training result. 
 - `--n_sample` : the number of sample (mix) the model will generate in the end of every epoch. 
-- `--n_critic` :   how many time the discrimator training  over generator training. 
--  `--cnn_type` :  the cnn type of encoder which has two option `res_cnn` and `cnn` .  
+- `--n_critic` :   how many time the discriminator training over generator training. 
+-  `--cnn_type` :  the cnn type of encoder (e.g: `res_cnn` or `cnn`) .  
 - `--loss_type` :  the loss function during the GAN training support `minmax`  and `least square` loss. 
 - `--batch_size` :  the batch size of dataloader during the GAN training
 
@@ -94,13 +94,13 @@ python script/inference.py [--g_path=(str, ex:'./pretrained/djtransgan_minmax.pt
 
 ```
 
-- `--g_path` :  the path of trained generator, can be the pre-trained model provide by us or the model training from scratch by you.  
-- `--out_dir` : the output directory which is going to save the mixing result. 
+- `--g_path` :  the path of trained generator, can be the pre-trained model provide by us or the model training by you.  
+- `--out_dir` : the output directory which is going to save the result. 
 - `--prev_track` : the path of the previous track (first track). 
 - `--next_track` : the path of the next track (second track).  
 -  `--prev_cue` :  the cue point of previous track (the point previous track totally fade out).  
 - `--next_cue` :   the cue point of next track (the point next track totally fade in).  
-- `--download` :   specify whether to download the pre-traind model provided by us. 
+- `--download` :   specify whether download the pre-trained model provided by us. 
 
 
 
